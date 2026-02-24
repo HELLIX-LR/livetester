@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authorization - LIVE RUSSIA Testers</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/login.css">
+</head>
+<body class="login-page">
+    <div class="login-background">
+        <!-- Background server nodes -->
+        <div class="server-node" style="top: 10%; left: 15%;">
+            <div class="server-icon">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="#6c757d">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                    <circle cx="12" cy="12" r="3"/>
+                </svg>
+            </div>
+            <div class="server-label">moscow</div>
+            <div class="server-users">
+                <div class="user-icon">👤</div>
+                <span>Online Enterprise</span>
+            </div>
+        </div>
+
+        <div class="server-node" style="top: 15%; right: 10%;">
+            <div class="server-icon">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="#6c757d">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                    <circle cx="12" cy="12" r="3"/>
+                </svg>
+            </div>
+            <div class="server-label">sevastopol</div>
+            <div class="server-users">
+                <div class="user-icon">👤</div>
+                <span>Flame Sampflame</span>
+            </div>
+        </div>
+
+        <div class="server-node" style="bottom: 20%; left: 10%;">
+            <div class="server-icon">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="#6c757d">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                    <circle cx="12" cy="12" r="3"/>
+                </svg>
+            </div>
+            <div class="server-label">continental</div>
+            <div class="server-users">
+                <div class="user-icon">👤</div>
+                <span>Kak_dela_carlo</span>
+            </div>
+        </div>
+
+        <div class="server-node" style="bottom: 15%; right: 15%;">
+            <div class="server-icon">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="#6c757d">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                    <circle cx="12" cy="12" r="3"/>
+                </svg>
+            </div>
+            <div class="server-label">babylon</div>
+            <div class="server-users">
+                <div class="user-icon">👤</div>
+                <span>Zxccursod</span>
+            </div>
+        </div>
+
+        <!-- Login Card -->
+        <div class="login-container">
+            <div class="login-card">
+               <div class="login-logo">
+    <img src="assets/testers-logo.png" alt="Testers Team Logo" style="width: 80px; height: 80px;">
+</div>
+                
+                <h2 class="login-title">Authorization</h2>
+                
+                <form id="loginForm" class="login-form">
+                    <div class="form-group">
+                        <input type="text" id="username" name="username" class="form-input" 
+                               placeholder="Username" required autocomplete="username">
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="password" id="password" name="password" class="form-input" 
+                               placeholder="Password" required autocomplete="current-password">
+                    </div>
+                    
+                    <div class="form-check">
+                        <input type="checkbox" id="remember" name="remember" class="form-checkbox">
+                        <label for="remember" class="form-check-label">Remember me</label>
+                    </div>
+                    
+                    <button type="submit" class="btn-login">
+                        <span class="btn-text">Log in</span>
+                        <span class="btn-loading" style="display: none;">
+                            <span class="spinner"></span>
+                            Logging in...
+                        </span>
+                    </button>
+                    
+                    <div id="errorMessage" class="error-message" style="display: none;"></div>
+                </form>
+                
+                <div class="login-footer">
+                    <p>LIVE RUSSIA © 2026</p>
+                    <p class="powered-by">powered by <a href="#">@lhellix</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>

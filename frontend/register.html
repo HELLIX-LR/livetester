@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tester Registration - LIVE RUSSIA</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/login.css">
+</head>
+<body class="login-page">
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <div class="login-logo">
+                    <img src="assets/logo.svg" alt="LIVE RUSSIA Logo">
+                </div>
+                <h1>Tester Registration</h1>
+                <p>Join the LIVE RUSSIA testing team</p>
+            </div>
+
+            <form id="registrationForm" class="login-form">
+                <div class="form-group">
+                    <label for="name">
+                        <i class="fas fa-user"></i> Full Name *
+                    </label>
+                    <input 
+                        type="text" 
+                        id="name" 
+                        name="name" 
+                        required 
+                        placeholder="Enter your full name"
+                        autocomplete="name"
+                    >
+                    <span class="error-message" id="nameError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">
+                        <i class="fas fa-envelope"></i> Email *
+                    </label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        required 
+                        placeholder="Enter your email"
+                        autocomplete="email"
+                    >
+                    <span class="error-message" id="emailError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="nickname">
+                        <i class="fas fa-tag"></i> Nickname
+                    </label>
+                    <input 
+                        type="text" 
+                        id="nickname" 
+                        name="nickname" 
+                        placeholder="Enter your nickname (optional)"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="telegram">
+                        <i class="fab fa-telegram"></i> Telegram
+                    </label>
+                    <input 
+                        type="text" 
+                        id="telegram" 
+                        name="telegram" 
+                        placeholder="@username or ID (optional)"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="deviceType">
+                        <i class="fas fa-mobile-alt"></i> Device Type *
+                    </label>
+                    <select id="deviceType" name="deviceType" required>
+                        <option value="">Select device type</option>
+                        <option value="smartphone">Smartphone</option>
+                        <option value="tablet">Tablet</option>
+                    </select>
+                    <span class="error-message" id="deviceTypeError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="os">
+                        <i class="fas fa-laptop"></i> Operating System *
+                    </label>
+                    <select id="os" name="os" required>
+                        <option value="">Select OS</option>
+                        <option value="Android">Android</option>
+                        <option value="iOS">iOS</option>
+                    </select>
+                    <span class="error-message" id="osError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="osVersion">
+                        <i class="fas fa-info-circle"></i> OS Version
+                    </label>
+                    <input 
+                        type="text" 
+                        id="osVersion" 
+                        name="osVersion" 
+                        placeholder="e.g., 13.0 (optional)"
+                    >
+                </div>
+
+                <div class="form-note">
+                    <i class="fas fa-info-circle"></i>
+                    Fields marked with * are required
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block" id="submitBtn">
+                    <i class="fas fa-user-plus"></i> Register
+                </button>
+
+                <div id="successMessage" class="success-message" style="display: none;">
+                    <i class="fas fa-check-circle"></i>
+                    <p>Registration successful! Thank you for joining the LIVE RUSSIA testing team.</p>
+                </div>
+
+                <div id="errorMessage" class="error-message-box" style="display: none;">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p id="errorText"></p>
+                </div>
+            </form>
+
+            <div class="login-footer">
+                <p>Already registered? Contact the administrator for access.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/register.js"></script>
+</body>
+</html>

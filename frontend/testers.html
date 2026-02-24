@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testers - LIVE RUSSIA Testers</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/dashboard.css">
+    <link rel="stylesheet" href="styles/tables.css">
+</head>
+<body class="dashboard-page">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <img src="assets/logo.svg" alt="LIVE RUSSIA Logo">
+            </div>
+            <div class="sidebar-title">
+                <h3>TESTER PANEL</h3>
+                <p>LIVE RUSSIA</p>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <!-- Common Section -->
+            <div class="nav-section">
+                <div class="nav-section-title">COMMON</div>
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="testers.html" class="nav-item active">
+                    <i class="fas fa-users"></i>
+                    <span>Testers</span>
+                </a>
+                <a href="#daily-norm" class="nav-item">
+                    <i class="fas fa-clock"></i>
+                    <span>Daily Norm</span>
+                </a>
+                <a href="bugs.html" class="nav-item">
+                    <i class="fas fa-bug"></i>
+                    <span>Bugs</span>
+                </a>
+            </div>
+
+            <!-- Server Section -->
+            <div class="nav-section">
+                <div class="nav-section-title">SERVERS</div>
+                
+                <div class="nav-item-group">
+                    <a href="#" class="nav-item server-item" data-server="moscow">
+                        <i class="fas fa-server"></i>
+                        <span>MOSCOW</span>
+                        <i class="fas fa-chevron-down arrow"></i>
+                    </a>
+                    <div class="nav-submenu">
+                        <a href="#" class="nav-subitem">
+                            <i class="fas fa-user"></i>
+                            <span>Owner: @hostwes</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="nav-item-group">
+                    <a href="#" class="nav-item server-item" data-server="sevastopol">
+                        <i class="fas fa-server"></i>
+                        <span>SEVASTOPOL</span>
+                        <i class="fas fa-chevron-down arrow"></i>
+                    </a>
+                    <div class="nav-submenu">
+                        <a href="#" class="nav-subitem">
+                            <i class="fas fa-user"></i>
+                            <span>Owner: @flame_samp</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="nav-item-group">
+                    <a href="#" class="nav-item server-item" data-server="yalta">
+                        <i class="fas fa-server"></i>
+                        <span>YALTA</span>
+                        <i class="fas fa-chevron-down arrow"></i>
+                    </a>
+                    <div class="nav-submenu">
+                        <a href="#" class="nav-subitem">
+                            <i class="fas fa-user"></i>
+                            <span>Owner: @yalta_admin</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="nav-item-group">
+                    <a href="#" class="nav-item server-item" data-server="babylon">
+                        <i class="fas fa-server"></i>
+                        <span>BABYLON</span>
+                        <i class="fas fa-chevron-down arrow"></i>
+                    </a>
+                    <div class="nav-submenu">
+                        <a href="#" class="nav-subitem">
+                            <i class="fas fa-user"></i>
+                            <span>Owner: @M4aka</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="nav-item-group">
+                    <a href="#" class="nav-item server-item" data-server="continental">
+                        <i class="fas fa-server"></i>
+                        <span>CONTINENTAL</span>
+                        <i class="fas fa-chevron-down arrow"></i>
+                    </a>
+                    <div class="nav-submenu">
+                        <a href="#" class="nav-subitem">
+                            <i class="fas fa-user"></i>
+                            <span>Owner: @HR_support</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="sidebar-footer">
+            <a href="#" class="nav-item" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="content-header">
+            <h1>Testers Management</h1>
+            <div class="header-actions">
+                <div class="export-buttons">
+                    <button class="btn btn-secondary" id="exportTestersCSV">
+                        <i class="fas fa-file-csv"></i> Export CSV
+                    </button>
+                    <button class="btn btn-secondary" id="exportTestersPDF">
+                        <i class="fas fa-file-pdf"></i> Export PDF
+                    </button>
+                </div>
+                <div class="user-info">
+                    <i class="fas fa-user-circle"></i>
+                    <span id="currentUser">Administrator</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="content-body">
+            <!-- Filters Panel -->
+            <div class="filters-panel">
+                <div class="filters-row">
+                    <div class="filter-group">
+                        <label for="searchInput">
+                            <i class="fas fa-search"></i> Search
+                        </label>
+                        <input type="text" id="searchInput" placeholder="Search by name or email...">
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="deviceFilter">
+                            <i class="fas fa-mobile-alt"></i> Device Type
+                        </label>
+                        <select id="deviceFilter">
+                            <option value="">All Devices</option>
+                            <option value="smartphone">Smartphone</option>
+                            <option value="tablet">Tablet</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="osFilter">
+                            <i class="fas fa-laptop"></i> OS
+                        </label>
+                        <select id="osFilter">
+                            <option value="">All OS</option>
+                            <option value="Android">Android</option>
+                            <option value="iOS">iOS</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="statusFilter">
+                            <i class="fas fa-toggle-on"></i> Status
+                        </label>
+                        <select id="statusFilter">
+                            <option value="">All Status</option>
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                            <option value="suspended">Suspended</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <button id="clearFiltersBtn" class="btn btn-secondary">
+                            <i class="fas fa-times"></i> Clear Filters
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testers Table -->
+            <div class="table-container">
+                <div class="table-header">
+                    <h3><i class="fas fa-users"></i> Testers List</h3>
+                    <div class="table-info">
+                        <span id="testersCount">0 testers</span>
+                    </div>
+                </div>
+
+                <div class="table-wrapper">
+                    <table class="data-table" id="testersTable">
+                        <thead>
+                            <tr>
+                                <th data-sort="id">
+                                    ID <i class="fas fa-sort"></i>
+                                </th>
+                                <th data-sort="name">
+                                    Name <i class="fas fa-sort"></i>
+                                </th>
+                                <th data-sort="email">
+                                    Email <i class="fas fa-sort"></i>
+                                </th>
+                                <th data-sort="nickname">
+                                    Nickname <i class="fas fa-sort"></i>
+                                </th>
+                                <th data-sort="telegram">
+                                    Telegram <i class="fas fa-sort"></i>
+                                </th>
+                                <th data-sort="device_type">
+                                    Device <i class="fas fa-sort"></i>
+                                </th>
+                                <th data-sort="os">
+                                    OS <i class="fas fa-sort"></i>
+                                </th>
+                                <th data-sort="bugs_count">
+                                    Bugs <i class="fas fa-sort"></i>
+                                </th>
+                                <th data-sort="rating">
+                                    Rating <i class="fas fa-sort"></i>
+                                </th>
+                                <th data-sort="status">
+                                    Status <i class="fas fa-sort"></i>
+                                </th>
+                                <th data-sort="registration_date">
+                                    Registration <i class="fas fa-sort"></i>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="testersTableBody">
+                            <tr>
+                                <td colspan="11" class="text-center">
+                                    <div class="loading-spinner">
+                                        <i class="fas fa-spinner fa-spin"></i> Loading testers...
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination-container">
+                    <div class="pagination-info">
+                        <span id="paginationInfo">Showing 0-0 of 0</span>
+                    </div>
+                    <div class="pagination-controls">
+                        <button id="prevPageBtn" class="btn btn-pagination" disabled>
+                            <i class="fas fa-chevron-left"></i> Previous
+                        </button>
+                        <span id="currentPageDisplay" class="page-display">Page 1</span>
+                        <button id="nextPageBtn" class="btn btn-pagination" disabled>
+                            Next <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Tester Details Modal -->
+    <div id="testerModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2><i class="fas fa-user"></i> Tester Details</h2>
+                <button class="modal-close" id="closeTesterModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="testerModalBody">
+                <!-- Tester details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/sidebar.js"></script>
+    <script src="js/export.js"></script>
+    <script src="js/testers.js"></script>
+</body>
+</html>

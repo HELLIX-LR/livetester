@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIVE RUSSIA - Tester Dashboard</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+</head>
+<body>
+    <div class="loading-container">
+        <div class="loading-content">
+            <div class="logo">
+                <h1 class="brand-title">LIVE RUSSIA</h1>
+                <p class="brand-subtitle">Tester Dashboard</p>
+            </div>
+            <div class="loading-spinner"></div>
+            <p class="loading-text">Загрузка...</p>
+        </div>
+    </div>
+    <script>
+        // Check if user is already authenticated
+        const checkAuth = async () => {
+            try {
+                const response = await fetch('/api/auth/session');
+                if (response.ok) {
+                    window.location.href = 'dashboard.html';
+                } else {
+                    window.location.href = 'login.html';
+                }
+            } catch (error) {
+                console.error('Auth check failed:', error);
+                window.location.href = 'login.html';
+            }
+        };
+        
+        // Add small delay for better UX
+        setTimeout(checkAuth, 500);
+    </script>
+</body>
+</html>

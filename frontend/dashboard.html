@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - LIVE RUSSIA Testers</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/dashboard.css">
+    <link rel="stylesheet" href="styles/notifications.css">
+</head>
+<body class="dashboard-page">
+    <!-- Notification Container -->
+    <div id="notificationContainer" class="notification-container"></div>
+    
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+    <img src="assets/logo.svg" alt="LIVE RUSSIA Logo">
+</div>
+            <div class="sidebar-title">
+                <h3>TESTER PANEL</h3>
+                <p>LIVE RUSSIA</p>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <!-- Common Section -->
+            <div class="nav-section">
+                <div class="nav-section-title">COMMON</div>
+                <a href="#dashboard" class="nav-item active">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="testers.html" class="nav-item">
+                    <i class="fas fa-users"></i>
+                    <span>Testers</span>
+                </a>
+                <a href="#daily-norm" class="nav-item">
+                    <i class="fas fa-clock"></i>
+                    <span>Daily Norm</span>
+                </a>
+                <a href="bugs.html" class="nav-item">
+                    <i class="fas fa-bug"></i>
+                    <span>Bugs</span>
+                </a>
+            </div>
+
+            <!-- Server Section -->
+            <div class="nav-section">
+                <div class="nav-section-title">SERVERS</div>
+                
+                <div class="nav-item-group">
+                    <a href="#" class="nav-item server-item" data-server="moscow">
+                        <i class="fas fa-server"></i>
+                        <span>MOSCOW</span>
+                        <i class="fas fa-chevron-down arrow"></i>
+                    </a>
+                    <div class="nav-submenu">
+                        <a href="#" class="nav-subitem">
+                            <i class="fas fa-user"></i>
+                            <span>Owner: @hostwes</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="nav-item-group">
+                    <a href="#" class="nav-item server-item" data-server="sevastopol">
+                        <i class="fas fa-server"></i>
+                        <span>SEVASTOPOL</span>
+                        <i class="fas fa-chevron-down arrow"></i>
+                    </a>
+                    <div class="nav-submenu">
+                        <a href="#" class="nav-subitem">
+                            <i class="fas fa-user"></i>
+                            <span>Owner: @flame_samp</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="nav-item-group">
+                    <a href="#" class="nav-item server-item" data-server="yalta">
+                        <i class="fas fa-server"></i>
+                        <span>YALTA</span>
+                        <i class="fas fa-chevron-down arrow"></i>
+                    </a>
+                    <div class="nav-submenu">
+                        <a href="#" class="nav-subitem">
+                            <i class="fas fa-user"></i>
+                            <span>Owner: @yalta_admin</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="nav-item-group">
+                    <a href="#" class="nav-item server-item" data-server="babylon">
+                        <i class="fas fa-server"></i>
+                        <span>BABYLON</span>
+                        <i class="fas fa-chevron-down arrow"></i>
+                    </a>
+                    <div class="nav-submenu">
+                        <a href="#" class="nav-subitem">
+                            <i class="fas fa-user"></i>
+                            <span>Owner: @M4aka</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="nav-item-group">
+                    <a href="#" class="nav-item server-item" data-server="continental">
+                        <i class="fas fa-server"></i>
+                        <span>CONTINENTAL</span>
+                        <i class="fas fa-chevron-down arrow"></i>
+                    </a>
+                    <div class="nav-submenu">
+                        <a href="#" class="nav-subitem">
+                            <i class="fas fa-user"></i>
+                            <span>Owner: @HR_support</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="sidebar-footer">
+            <a href="#" class="nav-item" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="content-header">
+            <h1>Dashboard</h1>
+            <div class="header-actions">
+                <div class="notification-bell" id="notificationBell">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-count" id="notificationCount">0</span>
+                </div>
+                <div class="user-info">
+                    <i class="fas fa-user-circle"></i>
+                    <span id="currentUser">Administrator</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="content-body">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon blue">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="totalTesters">0</h3>
+                        <p>Total Testers</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon green">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="activeTesters">0</h3>
+                        <p>Active Today</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon red">
+                        <i class="fas fa-bug"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="totalBugs">0</h3>
+                        <p>Total Bugs</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon orange">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="criticalBugs">0</h3>
+                        <p>Critical Bugs</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-trophy"></i> Top 10 Testers</h3>
+                    </div>
+                    <div class="card-body">
+                        <div id="topTestersTable" class="top-testers-list">
+                            <p class="text-muted">Loading...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-chart-pie"></i> Bug Statistics</h3>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="bugChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+        
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <!-- <script src="js/auth.js"></script> -->
+    <script src="js/notifications.js"></script>
+    <script src="js/sidebar.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/dashboard-init.js"></script>
+</body>
+</html>

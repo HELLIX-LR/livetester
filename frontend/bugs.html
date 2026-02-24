@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bugs - LIVE RUSSIA Testers</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/dashboard.css">
+    <link rel="stylesheet" href="styles/tables.css">
+    <link rel="stylesheet" href="styles/bugs.css">
+</head>
+<body class="dashboard-page">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <img src="assets/logo.svg" alt="LIVE RUSSIA Logo">
+            </div>
+            <div class="sidebar-title">
+                <h3>TESTER PANEL</h3>
+                <p>LIVE RUSSIA</p>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <!-- Common Section -->
+            <div class="nav-section">
+                <div class="nav-section-title">COMMON</div>
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="testers.html" class="nav-item">
+                    <i class="fas fa-users"></i>
+                    <span>Testers</span>
+                </a>
+                <a href="#daily-norm" class="nav-item">
+                    <i class="fas fa-clock"></i>
+                    <span>Daily Norm</span>
+                </a>
+                <a href="bugs.html" class="nav-item active">
+                    <i class="fas fa-bug"></i>
+                    <span>Bugs</span>
+                </a>
+            </div>
+
+            <!-- Server Section -->
+            <div class="nav-section">
+                <div class="nav-section-title">SERVERS</div>
+                
+                <div class="nav-item-group">
+                    <a href="#" class="nav-item server-item" data-server="moscow">
+                        <i class="fas fa-server"></i>
+                        <span>MOSCOW</span>
+                        <i class="fas fa-chevron-down arrow"></i>
+                    </a>
+                    <div class="nav-submenu">
+                        <a href="#" class="nav-subitem">
+                            <i class="fas fa-user"></i>
+                            <span>Owner: @hostwes</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="nav-item-group">
+                    <a href="#" class="nav-item server-item" data-server="sevastopol">
+                        <i class="fas fa-server"></i>
+                        <span>SEVASTOPOL</span>
+                        <i class="fas fa-chevron-down arrow"></i>
+                    </a>
+                    <div class="nav-submenu">
+                        <a href="#" class="nav-subitem">
+                            <i class="fas fa-user"></i>
+                            <span>Owner: @flame_samp</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="nav-item-group">
+                    <a href="#" class="nav-item server-item" data-server="yalta">
+                        <i class="fas fa-server"></i>
+                        <span>YALTA</span>
+                        <i class="fas fa-chevron-down arrow"></i>
+                    </a>
+                    <div class="nav-submenu">
+                        <a href="#" class="nav-subitem">
+                            <i class="fas fa-user"></i>
+                            <span>Owner: @yalta_admin</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="nav-item-group">
+                    <a href="#" class="nav-item server-item" data-server="babylon">
+                        <i class="fas fa-server"></i>
+                        <span>BABYLON</span>
+                        <i class="fas fa-chevron-down arrow"></i>
+                    </a>
+                    <div class="nav-submenu">
+                        <a href="#" class="nav-subitem">
+                            <i class="fas fa-user"></i>
+                            <span>Owner: @M4aka</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="nav-item-group">
+                    <a href="#" class="nav-item server-item" data-server="continental">
+                        <i class="fas fa-server"></i>
+                        <span>CONTINENTAL</span>
+                        <i class="fas fa-chevron-down arrow"></i>
+                    </a>
+                    <div class="nav-submenu">
+                        <a href="#" class="nav-subitem">
+                            <i class="fas fa-user"></i>
+                            <span>Owner: @HR_support</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="sidebar-footer">
+            <a href="#" class="nav-item" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="content-header">
+            <h1>Bug Management</h1>
+            <div class="header-actions">
+                <div class="export-buttons">
+                    <button class="btn btn-secondary" id="exportBugsCSV">
+                        <i class="fas fa-file-csv"></i> Export CSV
+                    </button>
+                    <button class="btn btn-secondary" id="exportBugsPDF">
+                        <i class="fas fa-file-pdf"></i> Export PDF
+                    </button>
+                </div>
+                <button id="createBugBtn" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Create Bug
+                </button>
+                <div class="user-info">
+                    <i class="fas fa-user-circle"></i>
+                    <span id="currentUser">Administrator</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="content-body">
+            <!-- Filters Panel -->
+            <div class="filters-panel">
+                <div class="filters-row">
+                    <div class="filter-group">
+                        <label for="searchInput">
+                            <i class="fas fa-search"></i> Search
+                        </label>
+                        <input type="text" id="searchInput" placeholder="Search by title or description...">
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="statusFilter">
+                            <i class="fas fa-toggle-on"></i> Status
+                        </label>
+                        <select id="statusFilter">
+                            <option value="">All Status</option>
+                            <option value="new">New</option>
+                            <option value="in_progress">In Progress</option>
+                            <option value="fixed">Fixed</option>
+                            <option value="closed">Closed</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="priorityFilter">
+                            <i class="fas fa-exclamation-circle"></i> Priority
+                        </label>
+                        <select id="priorityFilter">
+                            <option value="">All Priorities</option>
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                            <option value="critical">Critical</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="typeFilter">
+                            <i class="fas fa-tag"></i> Type
+                        </label>
+                        <select id="typeFilter">
+                            <option value="">All Types</option>
+                            <option value="ui">UI</option>
+                            <option value="functionality">Functionality</option>
+                            <option value="performance">Performance</option>
+                            <option value="crash">Crash</option>
+                            <option value="security">Security</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="testerFilter">
+                            <i class="fas fa-user"></i> Tester
+                        </label>
+                        <select id="testerFilter">
+                            <option value="">All Testers</option>
+                            <!-- Testers will be loaded dynamically -->
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <button id="clearFiltersBtn" class="btn btn-secondary">
+                            <i class="fas fa-times"></i> Clear Filters
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bugs Table -->
+            <div class="table-container">
+                <div class="table-header">
+                    <h3><i class="fas fa-bug"></i> Bugs List</h3>
+                    <div class="table-info">
+                        <span id="bugsCount">0 bugs</span>
+                    </div>
+                </div>
+
+                <div class="table-wrapper">
+                    <table class="data-table" id="bugsTable">
+                        <thead>
+                            <tr>
+                                <th data-sort="id">
+                                    ID <i class="fas fa-sort"></i>
+                                </th>
+                                <th data-sort="title">
+                                    Title <i class="fas fa-sort"></i>
+                                </th>
+                                <th data-sort="tester_name">
+                                    Tester <i class="fas fa-sort"></i>
+                                </th>
+                                <th data-sort="priority">
+                                    Priority <i class="fas fa-sort"></i>
+                                </th>
+                                <th data-sort="status">
+                                    Status <i class="fas fa-sort"></i>
+                                </th>
+                                <th data-sort="type">
+                                    Type <i class="fas fa-sort"></i>
+                                </th>
+                                <th data-sort="created_at">
+                                    Created <i class="fas fa-sort"></i>
+                                </th>
+                                <th>
+                                    Comments
+                                </th>
+                                <th>
+                                    Screenshots
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="bugsTableBody">
+                            <tr>
+                                <td colspan="9" class="text-center">
+                                    <div class="loading-spinner">
+                                        <i class="fas fa-spinner fa-spin"></i> Loading bugs...
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination-container">
+                    <div class="pagination-info">
+                        <span id="paginationInfo">Showing 0-0 of 0</span>
+                    </div>
+                    <div class="pagination-controls">
+                        <button id="prevPageBtn" class="btn btn-pagination" disabled>
+                            <i class="fas fa-chevron-left"></i> Previous
+                        </button>
+                        <span id="currentPageDisplay" class="page-display">Page 1</span>
+                        <button id="nextPageBtn" class="btn btn-pagination" disabled>
+                            Next <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Create Bug Modal -->
+    <div id="createBugModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2><i class="fas fa-plus"></i> Create New Bug</h2>
+                <button class="modal-close" id="closeCreateBugModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="createBugForm">
+                    <div class="form-group">
+                        <label for="bugTitle">Title <span class="required">*</span></label>
+                        <input type="text" id="bugTitle" name="title" required minlength="5" maxlength="500" placeholder="Enter bug title">
+                        <div class="form-error" id="bugTitleError"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bugDescription">Description <span class="required">*</span></label>
+                        <textarea id="bugDescription" name="description" required minlength="10" maxlength="5000" rows="5" placeholder="Describe the bug in detail"></textarea>
+                        <div class="form-error" id="bugDescriptionError"></div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="bugTester">Tester <span class="required">*</span></label>
+                            <select id="bugTester" name="testerId" required>
+                                <option value="">Select Tester</option>
+                                <!-- Testers will be loaded dynamically -->
+                            </select>
+                            <div class="form-error" id="bugTesterError"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="bugPriority">Priority <span class="required">*</span></label>
+                            <select id="bugPriority" name="priority" required>
+                                <option value="">Select Priority</option>
+                                <option value="low">Low</option>
+                                <option value="medium">Medium</option>
+                                <option value="high">High</option>
+                                <option value="critical">Critical</option>
+                            </select>
+                            <div class="form-error" id="bugPriorityError"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="bugStatus">Status <span class="required">*</span></label>
+                            <select id="bugStatus" name="status" required>
+                                <option value="new" selected>New</option>
+                                <option value="in_progress">In Progress</option>
+                                <option value="fixed">Fixed</option>
+                                <option value="closed">Closed</option>
+                            </select>
+                            <div class="form-error" id="bugStatusError"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="bugType">Type <span class="required">*</span></label>
+                            <select id="bugType" name="type" required>
+                                <option value="">Select Type</option>
+                                <option value="ui">UI</option>
+                                <option value="functionality">Functionality</option>
+                                <option value="performance">Performance</option>
+                                <option value="crash">Crash</option>
+                                <option value="security">Security</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <div class="form-error" id="bugTypeError"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" id="cancelCreateBugBtn">Cancel</button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Create Bug
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bug Details Modal -->
+    <div id="bugDetailsModal" class="modal">
+        <div class="modal-content modal-xlarge">
+            <div class="modal-header">
+                <h2><i class="fas fa-bug"></i> Bug Details</h2>
+                <button class="modal-close" id="closeBugDetailsModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="bugDetailsBody">
+                <!-- Bug details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Screenshot Viewer Modal -->
+    <div id="screenshotViewerModal" class="modal">
+        <div class="modal-content modal-image">
+            <button class="modal-close" id="closeScreenshotViewer">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-body">
+                <img id="screenshotViewerImage" src="" alt="Screenshot">
+            </div>
+        </div>
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/sidebar.js"></script>
+    <script src="js/export.js"></script>
+    <script src="js/bugs.js"></script>
+</body>
+</html>

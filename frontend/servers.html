@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server Statistics - LIVE RUSSIA Testers</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/dashboard.css">
+    <link rel="stylesheet" href="styles/servers.css">
+</head>
+<body class="dashboard-page">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <img src="assets/logo.svg" alt="LIVE RUSSIA Logo">
+            </div>
+            <div class="sidebar-title">
+                <h3>TESTER PANEL</h3>
+                <p>LIVE RUSSIA</p>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <!-- Common Section -->
+            <div class="nav-section">
+                <div class="nav-section-title">COMMON</div>
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="testers.html" class="nav-item">
+                    <i class="fas fa-users"></i>
+                    <span>Testers</span>
+                </a>
+                <a href="#daily-norm" class="nav-item">
+                    <i class="fas fa-clock"></i>
+                    <span>Daily Norm</span>
+                </a>
+                <a href="bugs.html" class="nav-item">
+                    <i class="fas fa-bug"></i>
+                    <span>Bugs</span>
+                </a>
+            </div>
+
+            <!-- Server Section -->
+            <div class="nav-section">
+                <div class="nav-section-title">SERVERS</div>
+                <a href="servers.html" class="nav-item active">
+                    <i class="fas fa-server"></i>
+                    <span>Server Statistics</span>
+                </a>
+                <a href="online-players.html" class="nav-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Online Players</span>
+                </a>
+            </div>
+        </nav>
+
+        <div class="sidebar-footer">
+            <a href="#" class="nav-item" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="content-header">
+            <h1><i class="fas fa-server"></i> Server Statistics</h1>
+            <div class="header-actions">
+                <div class="last-update">
+                    <i class="fas fa-sync-alt"></i>
+                    <span>Last update: <span id="lastUpdate">-</span></span>
+                </div>
+                <div class="user-info">
+                    <i class="fas fa-user-circle"></i>
+                    <span id="currentUser">Administrator</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="content-body">
+            <div class="servers-grid" id="serversGrid">
+                <!-- Server cards will be dynamically inserted here -->
+                <div class="loading-message">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Loading server statistics...</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/sidebar.js"></script>
+    <script src="js/servers.js"></script>
+</body>
+</html>
