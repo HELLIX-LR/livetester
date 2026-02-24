@@ -10,14 +10,29 @@ const path = require('path');
 const { Pool } = require('pg');
 require('dotenv').config();
 
+// Determine if we're in production (Render)
+const isProduction = process.env.NODE_ENV === 'production';
+
 // Database connection configuration
-const pool = new Pool({
-  host: process.env.DB_HOST || 'localhost',
-  port: process.env.DB_PORT || 5432,
-  database: process.env.DB_NAME || 'tester_dashboard',
-  user: process.env.DB_USER || 'postgres',
-  password: process.env.DB_PASSWORD || 'postgres',
-});
+const config = {
+  // If DATABASE_URL is provided (Render), use it
+  ...(process.env.DATABASE_URL ? {
+    connectionString: process.env.DATABASE_URL,
+    ssl: isProduction ? {
+      rejectUnauthorized: false // Required for Render PostgreSQL
+    } : false
+  } : {
+    // Otherwise use individual connection parameters
+    host: process.env.DB_HOST || 'localhost',
+    port: process.env.DB_PORT || 5432,
+    database: process.env.DB_NAME || 'tester_dashboard',
+    user: process.env.DB_USER || 'postgres',
+    password: process.env.DB_PASSWORD || 'postgres',
+  }),
+  connectionTimeoutMillis: 10000, // Increased timeout for Render
+};
+
+const pool = new Pool(config);
 
 // Migration files directory
 const migrationsDir = path.join(__dirname, 'migrations');
@@ -56,6 +71,8 @@ async function runMigration(filename) {
  */
 async function runMigrations() {
   console.log('Starting database migrations...\n');
+  console.log('Environment:', process.env.NODE_ENV || 'development');
+  console.log('Using DATABASE_URL:', !!process.env.DATABASE_URL);
   
   try {
     // Test database connection
@@ -102,6 +119,7 @@ async function runMigrations() {
     
   } catch (error) {
     console.error('✗ Database connection failed:', error.message);
+    console.error('Full error:', error);
     process.exit(1);
   } finally {
     await pool.end();
