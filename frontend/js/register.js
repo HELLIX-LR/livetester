@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         try {
             // Submit registration
-            const response = await api.post('/api/testers', formData);
+            const response = await api.post('/testers', formData);
             
             if (response.success) {
                 // Show success message
