@@ -1,40 +1,49 @@
-const redis = require('redis');
+﻿const redis = require('redis');
 
-// Create Redis client
-const redisClient = redis.createClient({
-  url: process.env.REDIS_URL || 'redis://localhost:6379',
-  socket: {
-    reconnectStrategy: (retries) => {
-      if (retries > 10) {
-        console.error('Redis: Max reconnection attempts reached');
-        return new Error('Max reconnection attempts reached');
+let redisClient = null;
+let isRedisAvailable = false;
+
+// Create Redis client only if REDIS_URL is provided
+if (process.env.REDIS_URL) {
+  redisClient = redis.createClient({
+    url: process.env.REDIS_URL,
+    socket: {
+      reconnectStrategy: (retries) => {
+        if (retries > 10) {
+          console.error('Redis: Max reconnection attempts reached');
+          return new Error('Max reconnection attempts reached');
+        }
+        return Math.min(retries * 100, 3000);
       }
-      return Math.min(retries * 100, 3000);
     }
-  }
-});
+  });
 
-redisClient.on('connect', () => {
-  console.log('✓ Connected to Redis');
-});
+  redisClient.on('connect', () => {
+    console.log(' Connected to Redis');
+    isRedisAvailable = true;
+  });
 
-redisClient.on('error', (err) => {
-  console.error('Redis error:', err);
-});
+  redisClient.on('error', (err) => {
+    console.error('Redis error:', err);
+    isRedisAvailable = false;
+  });
 
-redisClient.on('reconnecting', () => {
-  console.log('Redis: Reconnecting...');
-});
+  redisClient.on('reconnecting', () => {
+    console.log('Redis: Reconnecting...');
+  });
 
-// Connect to Redis
-(async () => {
-  try {
-    await redisClient.connect();
-  } catch (err) {
-    console.error('Failed to connect to Redis:', err);
-    process.exit(1);
-  }
-})();
+  // Connect to Redis (non-blocking)
+  (async () => {
+    try {
+      await redisClient.connect();
+    } catch (err) {
+      console.warn(' Redis not available - running without cache:', err.message);
+      isRedisAvailable = false;
+    }
+  })();
+} else {
+  console.log('ℹ Redis disabled - running without cache');
+}
 
 // Cache helper functions with TTL support
 const cache = {
@@ -44,6 +53,8 @@ const cache = {
    * @returns {Promise<any>} Parsed JSON value or null
    */
   async get(key) {
+    if (!isRedisAvailable || !redisClient) return null;
+    
     try {
       const value = await redisClient.get(key);
       return value ? JSON.parse(value) : null;
@@ -61,6 +72,8 @@ const cache = {
    * @returns {Promise<boolean>} Success status
    */
   async set(key, value, ttl) {
+    if (!isRedisAvailable || !redisClient) return false;
+    
     try {
       await redisClient.setEx(key, ttl, JSON.stringify(value));
       return true;
@@ -76,6 +89,8 @@ const cache = {
    * @returns {Promise<boolean>} Success status
    */
   async del(key) {
+    if (!isRedisAvailable || !redisClient) return false;
+    
     try {
       await redisClient.del(key);
       return true;
@@ -91,6 +106,8 @@ const cache = {
    * @returns {Promise<number>} Number of keys deleted
    */
   async delPattern(pattern) {
+    if (!isRedisAvailable || !redisClient) return 0;
+    
     try {
       const keys = await redisClient.keys(pattern);
       if (keys.length > 0) {
@@ -115,5 +132,6 @@ const CACHE_TTL = {
 module.exports = {
   redisClient,
   cache,
-  CACHE_TTL
+  CACHE_TTL,
+  isRedisAvailable: () => isRedisAvailable
 };
