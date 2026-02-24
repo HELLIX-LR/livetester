@@ -1,109 +1,309 @@
-<!DOCTYPE html>
-<html lang="ru">
+﻿<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Authorization - LIVE RUSSIA Testers</title>
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/login.css">
+    <title>Authorization - LIVE RUSSIA Admin Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; overflow: hidden; }
+        
+        .login-background {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 50%, #90caf9 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        /* Server Nodes */
+        .server-node {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: float 3s ease-in-out infinite;
+        }
+        .server-node:nth-child(1) { top: 10%; left: 15%; animation-delay: 0s; }
+        .server-node:nth-child(2) { top: 15%; right: 10%; animation-delay: 0.5s; }
+        .server-node:nth-child(3) { bottom: 20%; left: 10%; animation-delay: 1s; }
+        .server-node:nth-child(4) { bottom: 15%; right: 15%; animation-delay: 1.5s; }
+        .server-node:nth-child(5) { top: 50%; right: 5%; animation-delay: 2s; }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .server-icon {
+            width: 80px;
+            height: 80px;
+            background: #9e9e9e;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.5rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .server-label {
+            font-size: 0.875rem;
+            color: #424242;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+        
+        .server-users {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.75rem;
+            color: #616161;
+        }
+        
+        /* Login Card */
+        .login-container {
+            width: 100%;
+            max-width: 420px;
+            z-index: 10;
+        }
+        
+        .login-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            padding: 2.5rem;
+            animation: slideUp 0.5s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .login-logo {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .login-logo svg {
+            width: 80px;
+            height: 80px;
+        }
+        
+        .login-title {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #212121;
+            margin-bottom: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            font-size: 0.9375rem;
+            border: 1px solid #e0e0e0;
+            background: #f5f5f5;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            background: #fff;
+            border-color: #2196f3;
+            box-shadow: 0 0 0 2px rgba(33,150,243,0.2);
+        }
+        
+        .form-check {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-checkbox {
+            width: 18px;
+            height: 18px;
+            margin-right: 0.5rem;
+            cursor: pointer;
+        }
+        
+        .form-check-label {
+            font-size: 0.875rem;
+            color: #616161;
+            cursor: pointer;
+        }
+        
+        .btn-login {
+            width: 100%;
+            padding: 0.875rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: white;
+            background: #2196f3;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-login:hover {
+            background: #1976d2;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(33,150,243,0.3);
+        }
+        
+        .error-message {
+            margin-top: 1rem;
+            padding: 0.75rem;
+            background: #ffebee;
+            color: #c62828;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            text-align: center;
+            display: none;
+        }
+        
+        .login-footer {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e0e0e0;
+            margin-top: 1.5rem;
+        }
+        
+        .login-footer p {
+            margin: 0.25rem 0;
+            font-size: 0.875rem;
+            color: #757575;
+        }
+        
+        .powered-by {
+            font-size: 0.8125rem !important;
+            color: #9e9e9e !important;
+        }
+        
+        .powered-by a {
+            color: #2196f3;
+            text-decoration: none;
+        }
+    </style>
 </head>
-<body class="login-page">
+<body>
     <div class="login-background">
-        <!-- Background server nodes -->
-        <div class="server-node" style="top: 10%; left: 15%;">
+        <!-- Server Nodes -->
+        <div class="server-node">
             <div class="server-icon">
                 <svg width="40" height="40" viewBox="0 0 24 24" fill="#6c757d">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
-                    <circle cx="12" cy="12" r="3"/>
+                    <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+                    <circle cx="12" cy="12" r="3" fill="currentColor"/>
                 </svg>
             </div>
             <div class="server-label">moscow</div>
             <div class="server-users">
-                <div class="user-icon">👤</div>
-                <span>Online Enterprise</span>
+                <span></span>
+                <span>Ovsyanka_Comrade</span>
             </div>
         </div>
 
-        <div class="server-node" style="top: 15%; right: 10%;">
+        <div class="server-node">
             <div class="server-icon">
                 <svg width="40" height="40" viewBox="0 0 24 24" fill="#6c757d">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
-                    <circle cx="12" cy="12" r="3"/>
+                    <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+                    <circle cx="12" cy="12" r="3" fill="currentColor"/>
                 </svg>
             </div>
             <div class="server-label">sevastopol</div>
             <div class="server-users">
-                <div class="user-icon">👤</div>
-                <span>Flame Sampflame</span>
+                <span></span>
+                <span>Dmitry_Simonov</span>
             </div>
         </div>
 
-        <div class="server-node" style="bottom: 20%; left: 10%;">
+        <div class="server-node">
             <div class="server-icon">
                 <svg width="40" height="40" viewBox="0 0 24 24" fill="#6c757d">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
-                    <circle cx="12" cy="12" r="3"/>
+                    <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+                    <circle cx="12" cy="12" r="3" fill="currentColor"/>
                 </svg>
             </div>
             <div class="server-label">continental</div>
             <div class="server-users">
-                <div class="user-icon">👤</div>
-                <span>Kak_dela_carlo</span>
+                <span></span>
+                <span>Egor_Pikaperka</span>
             </div>
         </div>
 
-        <div class="server-node" style="bottom: 15%; right: 15%;">
+        <div class="server-node">
             <div class="server-icon">
                 <svg width="40" height="40" viewBox="0 0 24 24" fill="#6c757d">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
-                    <circle cx="12" cy="12" r="3"/>
+                    <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+                    <circle cx="12" cy="12" r="3" fill="currentColor"/>
                 </svg>
             </div>
             <div class="server-label">babylon</div>
             <div class="server-users">
-                <div class="user-icon">👤</div>
+                <span></span>
                 <span>Zxccursod</span>
+            </div>
+        </div>
+
+        <div class="server-node">
+            <div class="server-icon">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="#6c757d">
+                    <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+                    <circle cx="12" cy="12" r="3" fill="currentColor"/>
+                </svg>
+            </div>
+            <div class="server-label">yalta</div>
+            <div class="server-users">
+                <span></span>
+                <span>Alexei_Andreev</span>
             </div>
         </div>
 
         <!-- Login Card -->
         <div class="login-container">
             <div class="login-card">
-               <div class="login-logo">
-    <img src="assets/testers-logo.png" alt="Testers Team Logo" style="width: 80px; height: 80px;">
-</div>
+                <div class="login-logo">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="45" fill="#2196f3"/>
+                        <path d="M50 20 L50 35 M50 65 L50 80 M20 50 L35 50 M65 50 L80 50" stroke="white" stroke-width="6" stroke-linecap="round"/>
+                        <circle cx="50" cy="50" r="8" fill="white"/>
+                        <text x="50" y="58" font-size="24" font-weight="bold" fill="white" text-anchor="middle">A</text>
+                    </svg>
+                </div>
                 
                 <h2 class="login-title">Authorization</h2>
                 
-                <form id="loginForm" class="login-form">
+                <form id="loginForm">
                     <div class="form-group">
-                        <input type="text" id="username" name="username" class="form-input" 
-                               placeholder="Username" required autocomplete="username">
+                        <input type="text" id="username" class="form-input" placeholder="@hellix" required>
                     </div>
                     
                     <div class="form-group">
-                        <input type="password" id="password" name="password" class="form-input" 
-                               placeholder="Password" required autocomplete="current-password">
+                        <input type="password" id="password" class="form-input" placeholder="" required>
                     </div>
                     
                     <div class="form-check">
-                        <input type="checkbox" id="remember" name="remember" class="form-checkbox">
+                        <input type="checkbox" id="remember" class="form-checkbox">
                         <label for="remember" class="form-check-label">Remember me</label>
                     </div>
                     
-                    <button type="submit" class="btn-login">
-                        <span class="btn-text">Log in</span>
-                        <span class="btn-loading" style="display: none;">
-                            <span class="spinner"></span>
-                            Logging in...
-                        </span>
-                    </button>
+                    <button type="submit" class="btn-login">Log in</button>
                     
-                    <div id="errorMessage" class="error-message" style="display: none;"></div>
+                    <div id="errorMessage" class="error-message"></div>
                 </form>
                 
                 <div class="login-footer">
-                    <p>LIVE RUSSIA © 2026</p>
+                    <p>LIVE RUSSIA  2026</p>
                     <p class="powered-by">powered by <a href="#">@lhellix</a></p>
                 </div>
             </div>
