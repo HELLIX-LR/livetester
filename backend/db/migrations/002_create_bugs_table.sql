@@ -17,12 +17,12 @@ CREATE TABLE IF NOT EXISTS bugs (
 );
 
 -- Indexes for optimizing queries
-CREATE INDEX idx_bugs_tester_id ON bugs(tester_id);
-CREATE INDEX idx_bugs_status ON bugs(status);
-CREATE INDEX idx_bugs_priority ON bugs(priority);
-CREATE INDEX idx_bugs_type ON bugs(type);
-CREATE INDEX idx_bugs_created_at ON bugs(created_at DESC);
-CREATE INDEX idx_bugs_updated_at ON bugs(updated_at DESC);
+CREATE INDEX IF NOT EXISTS idx_bugs_tester_id ON bugs(tester_id);
+CREATE INDEX IF NOT EXISTS idx_bugs_status ON bugs(status);
+CREATE INDEX IF NOT EXISTS idx_bugs_priority ON bugs(priority);
+CREATE INDEX IF NOT EXISTS idx_bugs_type ON bugs(type);
+CREATE INDEX IF NOT EXISTS idx_bugs_created_at ON bugs(created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_bugs_updated_at ON bugs(updated_at DESC);
 
 -- Comments
 COMMENT ON TABLE bugs IS 'Stores bug reports found by testers';

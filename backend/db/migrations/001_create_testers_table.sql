@@ -21,10 +21,10 @@ CREATE TABLE IF NOT EXISTS testers (
 );
 
 -- Indexes for optimizing queries
-CREATE INDEX idx_testers_email ON testers(email);
-CREATE INDEX idx_testers_status ON testers(status);
-CREATE INDEX idx_testers_rating ON testers(rating DESC);
-CREATE INDEX idx_testers_registration_date ON testers(registration_date DESC);
+CREATE INDEX IF NOT EXISTS idx_testers_email ON testers(email);
+CREATE INDEX IF NOT EXISTS idx_testers_status ON testers(status);
+CREATE INDEX IF NOT EXISTS idx_testers_rating ON testers(rating DESC);
+CREATE INDEX IF NOT EXISTS idx_testers_registration_date ON testers(registration_date DESC);
 
 -- Comments
 COMMENT ON TABLE testers IS 'Stores tester registration and profile information';

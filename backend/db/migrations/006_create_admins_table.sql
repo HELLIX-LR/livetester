@@ -12,8 +12,8 @@ CREATE TABLE IF NOT EXISTS admins (
 );
 
 -- Indexes for optimizing queries
-CREATE INDEX idx_admins_username ON admins(username);
-CREATE INDEX idx_admins_email ON admins(email);
+CREATE INDEX IF NOT EXISTS idx_admins_username ON admins(username);
+CREATE INDEX IF NOT EXISTS idx_admins_email ON admins(email);
 
 -- Comments
 COMMENT ON TABLE admins IS 'Stores administrator user accounts';

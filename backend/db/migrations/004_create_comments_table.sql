@@ -15,9 +15,9 @@ CREATE TABLE IF NOT EXISTS comments (
 );
 
 -- Indexes for optimizing queries
-CREATE INDEX idx_comments_bug_id ON comments(bug_id);
-CREATE INDEX idx_comments_created_at ON comments(created_at);
-CREATE INDEX idx_comments_author_id ON comments(author_id);
+CREATE INDEX IF NOT EXISTS idx_comments_bug_id ON comments(bug_id);
+CREATE INDEX IF NOT EXISTS idx_comments_created_at ON comments(created_at);
+CREATE INDEX IF NOT EXISTS idx_comments_author_id ON comments(author_id);
 
 -- Comments
 COMMENT ON TABLE comments IS 'Stores comments on bug reports';

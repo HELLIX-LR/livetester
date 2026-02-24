@@ -13,9 +13,9 @@ CREATE TABLE IF NOT EXISTS activity_history (
 );
 
 -- Indexes for optimizing queries
-CREATE INDEX idx_activity_tester_id ON activity_history(tester_id);
-CREATE INDEX idx_activity_created_at ON activity_history(created_at DESC);
-CREATE INDEX idx_activity_event_type ON activity_history(event_type);
+CREATE INDEX IF NOT EXISTS idx_activity_tester_id ON activity_history(tester_id);
+CREATE INDEX IF NOT EXISTS idx_activity_created_at ON activity_history(created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_activity_event_type ON activity_history(event_type);
 
 -- Comments
 COMMENT ON TABLE activity_history IS 'Tracks tester activity events and changes';

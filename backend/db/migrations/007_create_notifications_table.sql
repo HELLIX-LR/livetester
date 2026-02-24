@@ -13,9 +13,9 @@ CREATE TABLE IF NOT EXISTS notifications (
 );
 
 -- Indexes for optimizing queries
-CREATE INDEX idx_notifications_is_read ON notifications(is_read);
-CREATE INDEX idx_notifications_created_at ON notifications(created_at DESC);
-CREATE INDEX idx_notifications_type ON notifications(type);
+CREATE INDEX IF NOT EXISTS idx_notifications_is_read ON notifications(is_read);
+CREATE INDEX IF NOT EXISTS idx_notifications_created_at ON notifications(created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_notifications_type ON notifications(type);
 
 -- Comments
 COMMENT ON TABLE notifications IS 'Stores system notifications for administrators';

@@ -14,8 +14,8 @@ CREATE TABLE IF NOT EXISTS screenshots (
 );
 
 -- Indexes for optimizing queries
-CREATE INDEX idx_screenshots_bug_id ON screenshots(bug_id);
-CREATE INDEX idx_screenshots_uploaded_at ON screenshots(uploaded_at DESC);
+CREATE INDEX IF NOT EXISTS idx_screenshots_bug_id ON screenshots(bug_id);
+CREATE INDEX IF NOT EXISTS idx_screenshots_uploaded_at ON screenshots(uploaded_at DESC);
 
 -- Comments
 COMMENT ON TABLE screenshots IS 'Stores screenshot attachments for bug reports';
