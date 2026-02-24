@@ -172,7 +172,7 @@ function setupEventListeners() {
 // Load testers for filters and forms
 async function loadTesters() {
     try {
-        const response = await api.get('/api/testers', { pageSize: 1000 });
+        const response = await api.get('/testers', { pageSize: 1000 });
         
         if (response.success) {
             bugsState.testers = response.data.testers;
@@ -591,7 +591,7 @@ async function handleCreateBug(e) {
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating...';
         
         // Make API request
-        const response = await api.post('/api/bugs', formData);
+        const response = await api.post('/bugs', formData);
         
         if (response.success) {
             showSuccess('Bug created successfully');

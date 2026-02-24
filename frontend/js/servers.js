@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // Load server statistics
 async function loadServerStats() {
     try {
-        const response = await api.get('/api/servers');
+        const response = await api.get('/servers');
         
         if (response.success) {
             renderServerCards(response.data);
